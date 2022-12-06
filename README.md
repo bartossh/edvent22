@@ -16,6 +16,7 @@ The Elves take turns writing down the number of Calories contained by the variou
 
 For example, suppose the Elves finish writing their items' Calories and end up with the following list:
 
+```
 1000
 2000
 3000
@@ -30,20 +31,24 @@ For example, suppose the Elves finish writing their items' Calories and end up w
 9000
 
 10000
+```
 
 This list represents the Calories of the food carried by five Elves:
 
+```
     The first Elf is carrying food with 1000, 2000, and 3000 Calories, a total of 6000 Calories.
     The second Elf is carrying one food item with 4000 Calories.
     The third Elf is carrying food with 5000 and 6000 Calories, a total of 11000 Calories.
     The fourth Elf is carrying food with 7000, 8000, and 9000 Calories, a total of 24000 Calories.
     The fifth Elf is carrying one food item with 10000 Calories.
+```
 
 In case the Elves get hungry and need extra snacks, they need to know which Elf to ask: they'd like to know how many Calories are being carried by the Elf carrying the most Calories. In the example above, this is 24000 (carried by the fourth Elf).
 
 Find the Elf carrying the most Calories. How many total Calories is that Elf carrying?
 
-Your puzzle answer was 72017.
+Your puzzle answer was `72017`.
+
 --- Part Two ---
 
 By the time you calculate the answer to the Elves' question, they've already realized that the Elf carrying the most Calories of food might eventually run out of snacks.
@@ -74,36 +79,43 @@ Since you can't be sure if the Elf is trying to help you or trick you, you shoul
 
 For example, suppose you were given the following strategy guide:
 
+```
 A Y
 B X
 C Z
+```
 
 This strategy guide predicts and recommends the following:
 
+```
     In the first round, your opponent will choose Rock (A), and you should choose Paper (Y). This ends in a win for you with a score of 8 (2 because you chose Paper + 6 because you won).
     In the second round, your opponent will choose Paper (B), and you should choose Rock (X). This ends in a loss for you with a score of 1 (1 + 0).
     The third round is a draw with both players choosing Scissors, giving you a score of 3 + 3 = 6.
+```
 
 In this example, if you were to follow the strategy guide, you would get a total score of 15 (8 + 1 + 6).
 
 What would your total score be if everything goes exactly according to your strategy guide?
 
-Your puzzle answer was 8933.
+Your puzzle answer was `8933`.
+
 --- Part Two ---
 
 The Elf finishes helping with the tent and sneaks back over to you. "Anyway, the second column says how the round needs to end: X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win. Good luck!"
 
 The total score is still calculated in the same way, but now you need to figure out what shape to choose so the round ends as indicated. The example above now goes like this:
 
+```
     In the first round, your opponent will choose Rock (A), and you need the round to end in a draw (Y), so you also choose Rock. This gives you a score of 1 + 3 = 4.
     In the second round, your opponent will choose Paper (B), and you choose Rock so you lose (X) with a score of 1 + 0 = 1.
     In the third round, you will defeat your opponent's Scissors with Rock for a score of 1 + 6 = 7.
+```
 
 Now that you're correctly decrypting the ultra top secret strategy guide, you would get a total score of 12.
 
 Following the Elf's instructions for the second column, what would your total score be if everything goes exactly according to your strategy guide?
 
-Your puzzle answer was 11998.
+Your puzzle answer was `11998`.
 
 ## Day 3
 
@@ -119,30 +131,36 @@ The list of items for each rucksack is given as characters all on a single line.
 
 For example, suppose you have the following list of contents from six rucksacks:
 
+```
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw
+```
 
-    The first rucksack contains the items vJrwpWtwJgWrhcsFMMfFFhFp, which means its first compartment contains the items vJrwpWtwJgWr, while the second compartment contains the items hcsFMMfFFhFp. The only item type that appears in both compartments is lowercase p.
-    The second rucksack's compartments contain jqHRNqRjqzjGDLGL and rsFMfFZSrLrFZsSL. The only item type that appears in both compartments is uppercase L.
-    The third rucksack's compartments contain PmmdzqPrV and vPwwTWBwg; the only common item type is uppercase P.
+
+    The first rucksack contains the items `vJrwpWtwJgWrhcsFMMfFFhFp`, which means its first compartment contains the items `vJrwpWtwJgWr`, while the second compartment contains the items hcsFMMfFFhFp. The only item type that appears in both compartments is lowercase p.
+    The second rucksack's compartments contain `jqHRNqRjqzjGDLGL` and `rsFMfFZSrLrFZsSL`. The only item type that appears in both compartments is uppercase L.
+    The third rucksack's compartments contain `PmmdzqPrV` and `vPwwTWBwg`; the only common item type is uppercase P.
     The fourth rucksack's compartments only share item type v.
     The fifth rucksack's compartments only share item type t.
     The sixth rucksack's compartments only share item type s.
 
 To help prioritize item rearrangement, every item type can be converted to a priority:
 
+```
     Lowercase item types a through z have priorities 1 through 26.
     Uppercase item types A through Z have priorities 27 through 52.
+```
 
 In the above example, the priority of the item type that appears in both compartments of each rucksack is 16 (p), 38 (L), 42 (P), 22 (v), 20 (t), and 19 (s); the sum of these is 157.
 
 Find the item type that appears in both compartments of each rucksack. What is the sum of the priorities of those item types?
 
-Your puzzle answer was 7824.
+Your puzzle answer was `7824`.
+
 --- Part Two ---
 
 As you finish identifying the misplaced items, the Elves come to you with another issue.
@@ -155,15 +173,19 @@ Additionally, nobody wrote down which item type corresponds to each group's badg
 
 Every set of three lines in your list corresponds to a single group, but each group can have a different badge item type. So, in the above example, the first group's rucksacks are the first three lines:
 
+```
 vJrwpWtwJgWrhcsFMMfFFhFp
 jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
 PmmdzqPrVvPwwTWBwg
+```
 
 And the second group's rucksacks are the next three lines:
 
+```
 wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw
+```
 
 In the first group, the only item type that appears in all three rucksacks is lowercase r; this must be their badges. In the second group, their badge item type must be Z.
 
@@ -183,12 +205,14 @@ However, as some of the Elves compare their section assignments with each other,
 
 For example, consider the following list of section assignment pairs:
 
+```
 2-4,6-8
 2-3,4-5
 5-7,7-9
 2-8,3-7
 6-6,4-6
 2-6,4-8
+```
 
 For the first few pairs, this list means:
 
@@ -198,6 +222,7 @@ For the first few pairs, this list means:
 
 This example list uses single-digit section IDs to make it easier to draw; your actual list might contain larger numbers. Visually, these pairs of section assignments look like this:
 
+```
 .234.....  2-4
 .....678.  6-8
 
@@ -215,6 +240,7 @@ This example list uses single-digit section IDs to make it easier to draw; your 
 
 .23456...  2-6
 ...45678.  4-8
+```
 
 Some of the pairs have noticed that one of their assignments fully contains the other. For example, 2-8 fully contains 3-7, and 6-6 is fully contained by 4-6. In pairs where one assignment fully contains the other, one Elf in the pair would be exclusively cleaning sections their partner will already be cleaning, so these seem like the most in need of reconsideration. In this example, there are 2 such pairs.
 
@@ -226,10 +252,12 @@ It seems like there is still quite a bit of duplicate work planned. Instead, the
 
 In the above example, the first two pairs (2-4,6-8 and 2-3,4-5) don't overlap, while the remaining four pairs (5-7,7-9, 2-8,3-7, 6-6,4-6, and 2-6,4-8) do overlap:
 
+```
     5-7,7-9 overlaps in a single section, 7.
     2-8,3-7 overlaps all of the sections 3 through 7.
     6-6,4-6 overlaps in a single section, 6.
     2-6,4-8 overlaps in sections 4, 5, and 6.
+```
 
 So, in this example, the number of overlapping assignment pairs is 4.
 
@@ -245,48 +273,60 @@ The Elves don't want to interrupt the crane operator during this delicate proced
 
 They do, however, have a drawing of the starting stacks of crates and the rearrangement procedure (your puzzle input). For example:
 
+```
     [D]    
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
+```
 
+```
 move 1 from 2 to 1
 move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2
+```
 
 In this example, there are three stacks of crates. Stack 1 contains two crates: crate Z is on the bottom, and crate N is on top. Stack 2 contains three crates; from bottom to top, they are crates M, C, and D. Finally, stack 3 contains a single crate, P.
 
 Then, the rearrangement procedure is given. In each step of the procedure, a quantity of crates is moved from one stack to a different stack. In the first step of the above rearrangement procedure, one crate is moved from stack 2 to stack 1, resulting in this configuration:
 
+```
 [D]        
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
+```
 
 In the second step, three crates are moved from stack 1 to stack 3. Crates are moved one at a time, so the first crate to be moved (D) ends up below the second and third crates:
 
+```
         [Z]
         [N]
     [C] [D]
     [M] [P]
  1   2   3
+```
 
 Then, both crates are moved from stack 2 to stack 1. Again, because crates are moved one at a time, crate C ends up below crate M:
 
+```
         [Z]
         [N]
 [M]     [D]
 [C]     [P]
  1   2   3
+```
 
 Finally, one crate is moved from stack 1 to stack 2:
 
+```
         [Z]
         [N]
         [D]
 [C] [M] [P]
  1   2   3
+```
 
 The Elves just need to know which crate will end up on top of each stack; in this example, the top crates are C in stack 1, M in stack 2, and Z in stack 3, so you should combine these together and give the Elves the message CMZ.
 
@@ -302,41 +342,51 @@ The CrateMover 9001 is notable for many new and exciting features: air condition
 
 Again considering the example above, the crates begin in the same configuration:
 
+```
     [D]    
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
+``
 
 Moving a single crate from stack 2 to stack 1 behaves the same as before:
 
+```
 [D]        
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
+```
 
 However, the action of moving three crates from stack 1 to stack 3 means that those three moved crates stay in the same order, resulting in this new configuration:
 
+```
         [D]
         [N]
     [C] [Z]
     [M] [P]
  1   2   3
+```
 
 Next, as both crates are moved from stack 2 to stack 1, they retain their order as well:
 
+```
         [D]
         [N]
 [C]     [Z]
 [M]     [P]
  1   2   3
+```
 
 Finally, a single crate is still moved from stack 1 to stack 2, but now it's crate C that gets moved:
 
+```
         [D]
         [N]
         [Z]
 [M] [C] [P]
  1   2   3
+```
 
 In this example, the CrateMover 9001 has put the crates in a totally different order: MCD.
 
@@ -362,7 +412,7 @@ The device will send your subroutine a datastream buffer (your puzzle input); yo
 
 For example, suppose you receive the following datastream buffer:
 
-mjqjpqmgbljsphdztnvjfqwrcgsmlb
+`mjqjpqmgbljsphdztnvjfqwrcgsmlb`
 
 After the first three characters (mjq) have been received, there haven't been enough characters received yet to find the marker. The first time a marker could occur is after the fourth character is received, making the most recent four characters mjqj. Because j is repeated, this isn't a marker.
 
@@ -370,10 +420,10 @@ The first time a marker appears is after the seventh character arrives. Once it 
 
 Here are a few more examples:
 
-    bvwbjplbgvbhsrlpgdmjqwftvncz: first marker after character 5
-    nppdvjthqldpwncqszvftbrmjlhg: first marker after character 6
-    nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg: first marker after character 10
-    zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw: first marker after character 11
+    `bvwbjplbgvbhsrlpgdmjqwftvncz`: first marker after character 5
+    `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character 6
+    `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character 10
+    `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character 11
 
 How many characters need to be processed before the first start-of-packet marker is detected?
 
@@ -385,11 +435,11 @@ A start-of-message marker is just like a start-of-packet marker, except it consi
 
 Here are the first positions of start-of-message markers for all of the above examples:
 
-    mjqjpqmgbljsphdztnvjfqwrcgsmlb: first marker after character 19
-    bvwbjplbgvbhsrlpgdmjqwftvncz: first marker after character 23
-    nppdvjthqldpwncqszvftbrmjlhg: first marker after character 23
-    nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg: first marker after character 29
-    zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw: first marker after character 26
+    `mjqjpqmgbljsphdztnvjfqwrcgsmlb`: first marker after character 19
+    `bvwbjplbgvbhsrlpgdmjqwftvncz`: first marker after character 23
+    `nppdvjthqldpwncqszvftbrmjlhg`: first marker after character 23
+    `nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg`: first marker after character 29
+    `zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw`: first marker after character 26
 
 How many characters need to be processed before the first start-of-message marker is detected?
 
