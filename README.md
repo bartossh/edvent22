@@ -347,7 +347,7 @@ Again considering the example above, the crates begin in the same configuration:
 [N] [C]    
 [Z] [M] [P]
  1   2   3 
-``
+```
 
 Moving a single crate from stack 2 to stack 1 behaves the same as before:
 
