@@ -41,7 +41,7 @@ func CalcDistance(d string) int {
 
 	visited := make(map[point]bool)
 	toGo := []point{start}
-	traveled := map[point]int{start: 0}
+	distFromStart := map[point]int{start: 0}
 
 	for {
 		currentPoint := toGo[0]
@@ -49,7 +49,7 @@ func CalcDistance(d string) int {
 		toGo = toGo[1:]
 
 		if currentPoint == end {
-			return traveled[end]
+			return distFromStart[end]
 		}
 
 		for _, neighbor := range [][]int{{1, 0}, {0, -1}, {-1, 0}, {0, 1}} {
@@ -58,17 +58,18 @@ func CalcDistance(d string) int {
 			if !visited[nextPoint] && nextPoint.x >= 0 && nextPoint.y >= 0 &&
 				nextPoint.x < len(arr[0]) && nextPoint.y < len(arr) &&
 				(arr[nextPoint.y][nextPoint.x]-arr[currentPoint.y][currentPoint.x] <= 1) {
-				if traveled[nextPoint] == 0 {
+				if distFromStart[nextPoint] == 0 {
 					toGo = append(toGo, nextPoint)
-					traveled[nextPoint] = traveled[currentPoint] + 1
+					distFromStart[nextPoint] = distFromStart[currentPoint] + 1
+					continue
 				}
-				if traveled[nextPoint] >= traveled[currentPoint]+1 {
-					traveled[nextPoint] = traveled[currentPoint] + 1
+				if distFromStart[nextPoint] >= distFromStart[currentPoint]+1 {
+					distFromStart[nextPoint] = distFromStart[currentPoint] + 1
 				}
 			}
 		}
 		sort.Slice(toGo, func(i, j int) bool {
-			return traveled[toGo[i]] < traveled[toGo[j]]
+			return distFromStart[toGo[i]] < distFromStart[toGo[j]]
 		})
 	}
 }
@@ -109,7 +110,7 @@ func CalcDistanceAnyLowerElevationStart(d string) int {
 	for _, start := range starts {
 		visited := make(map[point]bool)
 		toGo := []point{start}
-		traveled := map[point]int{start: 0}
+		distFromStart := map[point]int{start: 0}
 
 		for {
 			if len(toGo) == 0 {
@@ -120,7 +121,7 @@ func CalcDistanceAnyLowerElevationStart(d string) int {
 			toGo = toGo[1:]
 
 			if currentPoint == end {
-				shortest := traveled[end]
+				shortest := distFromStart[end]
 				if shortest < shortestPath {
 					shortestPath = shortest
 				}
@@ -133,17 +134,18 @@ func CalcDistanceAnyLowerElevationStart(d string) int {
 				if !visited[nextPoint] && nextPoint.x >= 0 && nextPoint.y >= 0 &&
 					nextPoint.x < len(arr[0]) && nextPoint.y < len(arr) &&
 					(arr[nextPoint.y][nextPoint.x]-arr[currentPoint.y][currentPoint.x] <= 1) {
-					if traveled[nextPoint] == 0 {
+					if distFromStart[nextPoint] == 0 {
 						toGo = append(toGo, nextPoint)
-						traveled[nextPoint] = traveled[currentPoint] + 1
+						distFromStart[nextPoint] = distFromStart[currentPoint] + 1
+						continue
 					}
-					if traveled[nextPoint] >= traveled[currentPoint]+1 {
-						traveled[nextPoint] = traveled[currentPoint] + 1
+					if distFromStart[nextPoint] >= distFromStart[currentPoint]+1 {
+						distFromStart[nextPoint] = distFromStart[currentPoint] + 1
 					}
 				}
 			}
 			sort.Slice(toGo, func(i, j int) bool {
-				return traveled[toGo[i]] < traveled[toGo[j]]
+				return distFromStart[toGo[i]] < distFromStart[toGo[j]]
 			})
 		}
 	}
