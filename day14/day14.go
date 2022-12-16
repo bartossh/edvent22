@@ -28,6 +28,7 @@ func CalcSandDropComingToRest(d string, start point2D) int {
 			cave[pos.y][pos.x] = 'o'
 			pos = start
 			counter++
+			// draws each drop
 			// for i := range cave {
 			// 	fmt.Printf("%v\n", string(cave[i][490:]))
 			// }
@@ -51,7 +52,7 @@ func CalcSandDropComingToReachDropPoint(d string, start point2D) int {
 	for {
 		var move bool
 		pos, move = drop(pos, cave)
-		if pos.y == start.y && pos.x == start.x { // last line is a void space that a sand will start falling to infinity
+		if pos.y == start.y && pos.x == start.x {
 			for i := range cave {
 				fmt.Printf("%v\n", string(cave[i][490:len(cave[i])-499]))
 			}
@@ -62,6 +63,7 @@ func CalcSandDropComingToReachDropPoint(d string, start point2D) int {
 			cave[pos.y][pos.x] = 'o'
 			pos = start
 			counter++
+			// draws each drop
 			// for i := range cave {
 			// 	fmt.Printf("%v\n", string(cave[i][490:]))
 			// }
