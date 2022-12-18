@@ -20,7 +20,7 @@ type node struct {
 	node string
 	time int
 	flow int
-	open map[string]int
+	open map[string]bool
 }
 
 func CalcMaxPressureToRelease(d string, minutes int) int {
@@ -64,7 +64,6 @@ func CalcMaxPressureToRelease(d string, minutes int) int {
 
 	for _, vl := range vls {
 		bfs(vls, vl)
-		fmt.Printf("%v\n", vl)
 	}
 
 	return solver(vls, minutes)
@@ -111,10 +110,9 @@ func CalcMaxPressureToReleaseWithElephant(d string, minutes int) int {
 
 	for _, vl := range vls {
 		bfs(vls, vl)
-		fmt.Printf("%v\n", vl)
 	}
 
-	return solver(vls, minutes)
+	return solverWithElephant(vls, minutes)
 }
 
 func bfs(vls valves, v *valve) {
@@ -145,7 +143,7 @@ func solver(vls valves, minutes int) int {
 		node: "AA",
 		time: minutes,
 		flow: 0,
-		open: make(map[string]int),
+		open: make(map[string]bool),
 	}
 	q = append(q, r)
 
@@ -166,7 +164,7 @@ func solver(vls valves, minutes int) int {
 		}
 
 		if len(opts) == 0 {
-			open := make(map[string]int, len(cur.open))
+			open := make(map[string]bool, len(cur.open))
 			copySet(open, cur.open)
 			f = append(f, node{
 				node: cur.node,
@@ -187,9 +185,9 @@ func solver(vls valves, minutes int) int {
 				})
 				continue
 			}
-			open := make(map[string]int, len(cur.open)+1)
+			open := make(map[string]bool, len(cur.open)+1)
 			copySet(open, cur.open)
-			open[val] = cur.time - stp
+			open[val] = true
 			q = append(q, node{
 				node: val,
 				time: cur.time - stp,
@@ -197,7 +195,6 @@ func solver(vls valves, minutes int) int {
 				open: open,
 			})
 		}
-
 	}
 
 	var max int
@@ -211,7 +208,7 @@ func solver(vls valves, minutes int) int {
 	return max
 }
 
-func copySet(dst, src map[string]int) {
+func copySet(dst, src map[string]bool) {
 	for k, v := range src {
 		dst[k] = v
 	}
@@ -221,10 +218,83 @@ func shift(arr []node) (node, []node) {
 	return arr[0], arr[1:]
 }
 
-func addFlow(vls valves, open map[string]int) int {
+func addFlow(vls valves, open map[string]bool) int {
 	var sum int
 	for k := range open {
 		sum += vls[k].rate
 	}
 	return sum
+}
+
+func solverWithElephant(vls valves, minutes int) int {
+	f := make([]node, 0)
+	q := make([]node, 0)
+
+	r := node{
+		node: "AA",
+		time: minutes,
+		flow: 0,
+		open: make(map[string]bool),
+	}
+	q = append(q, r)
+
+	for len(q) > 0 {
+		var cur node
+		cur, q = shift(q)
+		if cur.time <= 0 {
+			f = append(f, cur)
+			continue
+		}
+
+		opts := make([]string, 0)
+
+		for _, val := range vls {
+			if _, ok := cur.open[val.name]; !ok && val.rate > 0 {
+				opts = append(opts, val.name)
+			}
+		}
+
+		if len(opts) == 0 {
+			open := make(map[string]bool, len(cur.open))
+			copySet(open, cur.open)
+			f = append(f, node{
+				node: cur.node,
+				time: 0,
+				flow: cur.flow + cur.time*addFlow(vls, cur.open),
+				open: cur.open,
+			})
+		}
+
+		for _, val := range opts {
+			stp := vls[cur.node].paths[val] + 1 // move and open
+			if cur.time-stp < 0 {
+				f = append(f, node{
+					node: cur.node,
+					time: 0,
+					flow: cur.flow + cur.time*addFlow(vls, cur.open),
+					open: cur.open,
+				})
+				continue
+			}
+			open := make(map[string]bool, len(cur.open)+1)
+			copySet(open, cur.open)
+			open[val] = true
+			q = append(q, node{
+				node: val,
+				time: cur.time - stp,
+				flow: cur.flow + stp*addFlow(vls, cur.open),
+				open: open,
+			})
+		}
+	}
+
+	var max int
+
+	for _, pth := range f {
+		if pth.flow > max {
+			max = pth.flow
+		}
+	}
+
+	return max
 }
