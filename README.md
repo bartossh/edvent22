@@ -3060,7 +3060,7 @@ Because of how quickly the lava is moving, the scan isn't very good; its resolut
 To approximate the surface area, count the number of sides of each cube that are not immediately connected to another cube. So, if your scan were only two adjacent cubes like 1,1,1 and 2,1,1, each cube would have a single side covered and five sides exposed, a total surface area of 10 sides.
 
 Here's a larger example:
-
+```
 2,2,2
 1,2,2
 3,2,2
@@ -3074,7 +3074,7 @@ Here's a larger example:
 3,2,5
 2,1,5
 2,3,5
-
+```
 In the above example, after counting up all the sides that aren't connected to another cube, the total surface area is 64.
 
 What is the surface area of your scanned lava droplet?
