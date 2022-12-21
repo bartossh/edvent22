@@ -18,6 +18,16 @@ func BenchmarkCircularBufferEncryptionTestData(b *testing.B) {
 	}
 }
 
+func TestCircularBufferEncryptionKeyTestData(t *testing.T) {
+	res := CircularBufferDecryptWithEncryptionKey(data.EncryptedCoordinatesTest, 811589153, 10)
+	fmt.Printf("Result of encrypting test data: %v\n", res)
+}
+
+func TestCircularBufferEncryptionKeyPuzzleData(t *testing.T) {
+	res := CircularBufferDecryptWithEncryptionKey(data.EncryptedCoordinatesPuzzle, 811589153, 10)
+	fmt.Printf("Result of encrypting test data: %v\n", res)
+}
+
 func TestCircularBufferEncryptionPuzzleData(t *testing.T) {
 	res := CircularBufferDecrypt(data.EncryptedCoordinatesPuzzle)
 	fmt.Printf("Result of encrypting test data: %v\n", res)

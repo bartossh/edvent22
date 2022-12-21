@@ -6,6 +6,46 @@ import (
 	"strings"
 )
 
+func CircularBufferDecryptWithEncryptionKey(d string, key, rounds int) int {
+	coordsAfterZero := []int{1000, 2000, 3000}
+	rows := strings.Split(d, "\n")
+	original := make([]*int, 0)
+	circular := make([]*int, 0)
+	for _, r := range rows {
+		if r == "" {
+			continue
+		}
+		n, err := strconv.Atoi(r)
+		if err != nil {
+			panic(fmt.Errorf("unexpected, %w", err))
+		}
+		n = n * key
+		original = append(original, &n)
+		circular = append(circular, &n)
+	}
+
+	for rounds > 0 {
+		for _, member := range original {
+			circular = rearrangeCircBuf(member, circular)
+		}
+		rounds--
+	}
+
+	idxOfZero := findByValue(0, circular)
+	if idxOfZero == -1 {
+		panic("cannot find idx of zero")
+	}
+
+	sum := 0
+	for _, v := range coordsAfterZero {
+		offset := (idxOfZero + v) % len(circular)
+		value := circular[offset]
+		sum += *value
+	}
+
+	return sum
+}
+
 func CircularBufferDecrypt(d string) int {
 	coordsAfterZero := []int{1000, 2000, 3000}
 	rows := strings.Split(d, "\n")
