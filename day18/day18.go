@@ -3,6 +3,7 @@ package day18
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -52,22 +53,15 @@ func calcCoveredFaces(pts []point) int {
 
 func CalcTouching(d string) int {
 	rows := strings.Split(d, "\n")
-	pts := make([]point, 0)
 
-	for _, r := range rows {
-		if r == "" {
+	lines := make([]string, 0)
+	for _, row := range rows {
+		if row == "" {
 			continue
 		}
-
-		var x, y, z int
-
-		fmt.Sscanf(r, "%d,%d,%d", &x, &y, &z)
-
-		pts = append(pts, point{x, y, z})
+		lines = append(lines, row)
 	}
-
-	return calcWhenTrapped(pts) + 4
-
+	return bytesApproach(lines)
 }
 
 func calcWhenTrapped(pts []point) int {
@@ -90,6 +84,8 @@ func calcWhenTrapped(pts []point) int {
 	holderXZ := Polygon{polygonXZ}
 	holderYZ := Polygon{polygonYZ}
 
+	var countFaces int
+
 	for _, p := range pts {
 		pxy := []float64{float64(p.x), float64(p.y)}
 		pxz := []float64{float64(p.x), float64(p.z)}
@@ -101,12 +97,14 @@ func calcWhenTrapped(pts []point) int {
 		if !one || !two || !three {
 			ext[hash(p.x, p.y, p.z)] = point{p.x, p.y, p.z}
 		}
+		if !one && !two && !three {
+			countFaces += 6
+		}
 		all[hash(p.x, p.y, p.z)] = point{p.x, p.y, p.z}
 
 	}
 
 	fmt.Printf("number of ext: %v\n", len(ext))
-	var countFaces int
 
 	for _, v := range ext {
 		yp := hash(v.x, v.y-1, v.z)
@@ -279,4 +277,96 @@ func doIntersect(l1, l2 [][]float64) (bool, error) {
 	}
 
 	return false, nil
+}
+
+// we modelize the 3D grid space, as a linear array of positions,
+// a position p is: x + y*size + z*area
+var size, area, volume int // dims of world: cube enclosing the lava droplet
+var cube []bool            // is there a rock bit at position?
+var bits []int             // the positions of rock bits in the droplet
+var adjacent [6]int        // the relative position offsets of the 6 adjacent bits
+var vapor []bool           // part2: is there vapor at position?
+
+var verbose bool
+
+func bytesApproach(lines []string) (outside int) {
+	parse(lines)
+	vapor = make([]bool, volume, volume)  // is filled with vapor?
+	for z := 0; z < size; z += size - 1 { // top & bottom sides
+		for x := 0; x < size; x++ {
+			for y := 0; y < size; y++ {
+				injectVapor(x + y*size + z*area)
+			}
+		}
+	}
+	for z := 1; z < size-1; z++ { // middle slices: perimeter x,y
+		for x := 0; x < size; x += size - 1 { // x edges
+			for y := 0; y < size; y++ {
+				injectVapor(x + y*size + z*area)
+			}
+		}
+		for x := 1; x < size-1; x++ { // y edges
+			for y := 0; y < size; y += size {
+				injectVapor(x + y*size + z*area)
+			}
+		}
+	}
+
+	for _, bit := range bits {
+		for _, adj := range adjacent {
+			p := bit + adj
+			if p < 0 || p >= volume || vapor[p] {
+				outside++
+			}
+		}
+	}
+	return
+}
+
+func parse(lines []string) {
+	var x, y, z, max int
+	bits = make([]int, 0)
+	for lineno, line := range lines {
+		_, err := fmt.Sscanf(line, "%d,%d,%d", &x, &y, &z)
+		if err != nil {
+			log.Fatalf("Syntax error line %d: %s\n", lineno, line)
+		}
+		if x > max {
+			max = x
+		}
+		if y > max {
+			max = y
+		}
+		if z > max {
+			max = z
+		}
+	}
+	size = max + 1
+	area = size * size
+	volume = area * size
+	cube = make([]bool, volume)
+	adjacent[0] = 1
+	adjacent[1] = -1
+	adjacent[2] = size
+	adjacent[3] = -size
+	adjacent[4] = area
+	adjacent[5] = -area
+
+	for _, line := range lines {
+		fmt.Sscanf(line, "%d,%d,%d", &x, &y, &z)
+		cube[x+y*size+z*area] = true
+		bits = append(bits, x+y*size+z*area)
+	}
+}
+
+func injectVapor(bit int) {
+	if !cube[bit] && !vapor[bit] {
+		vapor[bit] = true              // fill it
+		for _, adj := range adjacent { // expand to neighbors
+			p := bit + adj
+			if p >= 0 && p < volume && !cube[p] && !vapor[p] {
+				injectVapor(p)
+			}
+		}
+	}
 }
