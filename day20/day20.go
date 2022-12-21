@@ -147,22 +147,6 @@ func findInCircBuf(m *int, buf []*int) int {
 	return -1
 }
 
-func abs(a int) int {
-	if a >= 0 {
-		return a
-	}
-	return -a
-}
-
-func findPosByValue(v int, buf []*int) int {
-	for i, vv := range buf {
-		if v == *vv {
-			return i
-		}
-	}
-	return -1
-}
-
 func findByValue(v int, buf []*int) int {
 	for i, vv := range buf {
 		if *vv == v {
