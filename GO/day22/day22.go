@@ -1,6 +1,7 @@
 package day22
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -99,6 +100,7 @@ Outer:
 			face = i
 		}
 	}
+	fmt.Printf("pnt: %#v, dir: %#v", pnt, dir)
 
 	return (pnt.y+1)*1000 + (pnt.x+1)*4 + face
 }
