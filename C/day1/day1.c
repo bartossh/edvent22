@@ -40,7 +40,7 @@ void print_items_values(items it)
 void append_to_items(items *is, int i)
 {
     if (is->len == is->cap) {
-        is->cap += is->cap;
+        is->cap += is->cap; // grow buffer by the factor or times two the capacity
         is->values = realloc(is->values, is->cap*sizeof(int));
     }
     is->values[is->len] = i;
@@ -90,7 +90,7 @@ void append_to_elves(elves *el, items i)
 {
     if (el->len == el->cap) 
     {
-        el->cap += el->cap;
+        el->cap += el->cap; // grow buffer by the factor or times two the capacity
         el->values = realloc(el->values, el->cap*sizeof(items));
     }
 
@@ -115,7 +115,7 @@ int calc_max_cal_elves(elves el)
 int calc_max_cal_top_elves(elves el, int top)
 {
     if (top > el.len) {
-        return -1; // avoid accessing values from outside if a buffer
+        return -1; // avoid accessing values from outside of a buffer
     }
     
     int *calories = malloc(sizeof(int)*el.len);
