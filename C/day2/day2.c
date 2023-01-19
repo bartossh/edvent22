@@ -81,7 +81,7 @@ char transform_to_your_hand(char op, char act)
             return wining_hand(op);
     }
 
-    return 'e'; // e - no coresponding match in other funcs than will exit with
+    return 'e';
 }
 
 void solve_1(const char *file_name)
@@ -92,7 +92,6 @@ void solve_1(const char *file_name)
     fp = fopen(file_name, "r");
     if (fp == NULL) exit(EXIT_FAILURE);
     char chunk[128];
-    printf("starting...\n");
 
     int score = 0; 
 
@@ -122,7 +121,6 @@ void solve_2(const char *file_name)
     fp = fopen(file_name, "r");
     if (fp == NULL) exit(EXIT_FAILURE);
     char chunk[128];
-    printf("starting...\n");
 
     int score = 0; 
 
@@ -142,7 +140,7 @@ void solve_2(const char *file_name)
 
     fclose(fp);
 
-    printf("solution for task 2.1 for data from %s is: %d\n", file_name, score);
+    printf("solution for task 2.2 for data from %s is: %d\n", file_name, score);
 }
 
 int main() 
