@@ -39,7 +39,8 @@ void print_items_values(items it)
 
 void append_to_items(items *is, int i)
 {
-    if (is->len == is->cap) {
+    if (is->len == is->cap) 
+    {
         is->cap += is->cap; // grow buffer by the factor or times two the capacity
         is->values = realloc(is->values, is->cap*sizeof(int));
     }
@@ -114,7 +115,8 @@ int calc_max_cal_elves(elves el)
 
 int calc_max_cal_top_elves(elves el, int top)
 {
-    if (top > el.len) {
+    if (top > el.len) 
+    {
         return -1; // avoid accessing values from outside of a buffer
     }
     
@@ -128,7 +130,8 @@ int calc_max_cal_top_elves(elves el, int top)
     qsort( calories, el.len, sizeof(int), compare);
     
     int sum = 0;
-    for (int i = el.len-1; i > el.len-1-top; i--) {
+    for (int i = el.len-1; i > el.len-1-top; i--) 
+    {
         sum += calories[i];
     } 
     
