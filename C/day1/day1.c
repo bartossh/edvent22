@@ -41,7 +41,7 @@ void append_to_items(items *is, int i)
 {
     if (is->len == is->cap) 
     {
-        is->cap += is->cap; // grow buffer by the factor or times two the capacity
+        is->cap += is->cap; // grow buffer by the factor of times two the capacity
         is->values = realloc(is->values, is->cap*sizeof(int));
     }
     is->values[is->len] = i;
@@ -91,7 +91,7 @@ void append_to_elves(elves *el, items i)
 {
     if (el->len == el->cap) 
     {
-        el->cap += el->cap; // grow buffer by the factor or times two the capacity
+        el->cap += el->cap; // grow buffer by the factor of times two the capacity
         el->values = realloc(el->values, el->cap*sizeof(items));
     }
 
