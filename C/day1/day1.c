@@ -56,7 +56,7 @@ int calc_calories_items(items it)
         sum += it.values[i];
     }
     return sum;
-} 
+}
 
 void free_items_values(items it) {
         free(it.values);
