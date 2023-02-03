@@ -8,25 +8,25 @@ const int CHUNK_SIZE = 256;
 
 char find_diff_char(char *a, int last)
 {
-    unsigned char bits[32];
+    unsigned char bytes[32];
     
     for(int i = 0; i < 32; i++ )
     {    
-        bits[i] = 0;
+        bytes[i] = 0;
     }
 
     for (int i = 0; i < last /2; i++)
     {
         int j = a[i]/8;
         unsigned char mask = 1<<(a[i]%8);
-        bits[j] |= mask;
+        bytes[j] |= mask;
     }
 
     for (int i = last/2; i < last; i++)
     { 
         int j = a[i]/8;
         unsigned char mask = 1<<(a[i]%8);
-        if ((bits[j]&mask) != 0)
+        if ((bytes[j]&mask) != 0)
         {
             return a[i]; 
         }
@@ -38,11 +38,11 @@ char find_diff_char(char *a, int last)
 char *get_repetitions(char *str_a,char *str_b)
 {
     int i = 0; 
-    unsigned char bits[32];
+    unsigned char bytes[32];
     
     for(int i = 0; i < 32; i++ )
     {    
-        bits[i] = 0;
+        bytes[i] = 0;
     }
 
     while(true)
@@ -54,7 +54,7 @@ char *get_repetitions(char *str_a,char *str_b)
         }
         int j = c/8;
         unsigned char mask = 1<<(c%8);
-        bits[j] |= mask;
+        bytes[j] |= mask;
         i++;
     }
 
@@ -71,7 +71,7 @@ char *get_repetitions(char *str_a,char *str_b)
         }
         int j = c/8;
         unsigned char mask = 1<<(c%8);
-        if ((bits[j]&mask) != 0)
+        if ((bytes[j]&mask) != 0)
         {
             repetions[next] = c; 
             next++;

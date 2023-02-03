@@ -7,22 +7,22 @@ const int CHUNK_SIZE = 256000;
 
 bool has_occurrence(char *c, int num)
 {
-    unsigned char bits[32];
+    unsigned char bytes[32];
     
     for(int i = 0; i < 32; i++ )
     {    
-        bits[i] = 0;
+        bytes[i] = 0;
     }
 
     for (int i = 0; i < num; i++)
     {
         int j = c[i]/8;
         unsigned char mask = 1<<(c[i]%8);
-        if ((bits[j]&mask) != 0)
+        if ((bytes[j]&mask) != 0)
         {
             return true;
         }
-        bits[j] |= mask;
+        bytes[j] |= mask;
     }
 
    return false;
