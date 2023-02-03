@@ -5,7 +5,7 @@
 
 const int CHUNK_SIZE = 256000;
 
-bool has_occurance(char *c, int num)
+bool has_occurrence(char *c, int num)
 {
     unsigned char bits[32];
     
@@ -28,14 +28,14 @@ bool has_occurance(char *c, int num)
    return false;
 }
 
-int calculate_occurenece(char *c, int num)
+int calculate_occurrence(char *c, int num)
 {
     for (int i = 0; i < CHUNK_SIZE-num; i++)
     {
         if (c[i+num] == '\n' || c[i+num] == ' ') {
             return -1;
         }
-        if (has_occurance(c+i, num)==false)
+        if (has_occurrence(c+i, num)==false)
         {
             return i+num;
         }
@@ -61,7 +61,7 @@ void solve(const char *file_name, int num)
         {
             continue;
         }
-        result = calculate_occurenece(chunk, num);
+        result = calculate_occurrence(chunk, num);
 
     }
     printf("pile arrangement to task 5 slice size %d for data from %s is: %d \n",num, file_name, result);
